@@ -49,14 +49,16 @@ module ContactImporter
       # login: test@domain
       l = login
       login, domain = l.split('@')
-      domain = "interia.pl" if domain.blank?
+      domain = "interia.pl" if domain.nil?
       agent = WWW::Mechanize.new
       agent.user_agent_alias = 'Mac Safari'
       page = agent.get('http://poczta.interia.pl/')
       form = page.forms[0]
-      form.fields.find{|f| f.name == 'login'}.value = login
+      form.fields.find{|f| f.name == 'email'}.value = "#{login}@#{domain}"
       form.fields.find{|f| f.name == 'pass'}.value = password
-      form.fields.find{|f| f.name == 'domain'}.value = domain
+      form.checkboxes.find{|f| f.name == 'formHTTP'}.click
+      form.radiobuttons.find {|f| f.name == 'webmailSelect' and f.value == 'classicMail' }.click
+      
       page = agent.submit(form)
       page = agent.get("http://poczta.interia.pl/classic/")
       page = page.links.find{|l| l.text =~ /\.*kontakty\.*/}.click()
@@ -86,7 +88,7 @@ module ContactImporter
       vals = []
       page.body.split("\n").each do |row|
         v = row.split(',')
-        vals << [v[3], v[4]]
+        vals << [v[3], v[4]] if v[4]
       end
       vals
     end
