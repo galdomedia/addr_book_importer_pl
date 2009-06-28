@@ -43,7 +43,7 @@ module ContactImporter
       ret
     end
   end
-
+  
   class Interia < Importer
     def get_addresses
       # login: test@domain
@@ -70,7 +70,7 @@ module ContactImporter
       ret
     end
   end
-
+  
   class O2 <Importer
     def get_addresses
       agent = WWW::Mechanize.new
@@ -93,7 +93,7 @@ module ContactImporter
       vals
     end
   end
-
+  
   class GoogleApps < Importer
     def return_addresses_from_body(body)
       contacts = []
@@ -120,7 +120,7 @@ module ContactImporter
      contacts
     end
   end
-
+  
   class Gmail < GoogleApps
     def get_addresses
       agent = WWW::Mechanize.new
@@ -136,7 +136,7 @@ module ContactImporter
       return_addresses_from_body(page.body)
     end
   end
-
+  
   class Gazeta < GoogleApps
     def get_addresses
       agent = WWW::Mechanize.new

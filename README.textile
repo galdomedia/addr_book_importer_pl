@@ -1,9 +1,13 @@
 Użycie jest banalne:
 
-@
-require 'contact_importer'
+bc. require 'contact_importer'
 include ContactImporter
 o = Gmail.new('login', 'password')
 o.get_addresses # lista rekordów [login, email]
-@
 
+Wymaga "nokogiri":nokogiri, "mechanize":mechanize i "fastercsv":fastercsv
+
+
+[nokogiri]http://github.com/tenderlove/nokogiri/tree/master
+[mechanize]http://mechanize.rubyforge.org/mechanize/
+[fastercsv]http://fastercsv.rubyforge.org/
